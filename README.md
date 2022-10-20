@@ -1,1 +1,1 @@
-# stori-tech-challenge
+# Stori-tech-challenge
