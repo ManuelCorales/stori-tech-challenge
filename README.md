@@ -26,3 +26,6 @@ For running docker container
 For finally running the code:
 -> 'docker exec -ti stori-challenge sh -c "python3 index.py <email account to which the email will be sent >"'.
 Ex: 'docker exec -ti stori-challenge sh -c "python3 index.py mcoralesdev@gmail.com"'
+
+
+Manuel Corales
