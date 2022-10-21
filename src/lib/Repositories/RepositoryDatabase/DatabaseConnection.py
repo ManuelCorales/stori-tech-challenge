@@ -15,10 +15,22 @@ class DatabaseConnection:
             print(e)
             self.__conn.close()
 
-    def updateMultipleRows(self, query, rowData):
+    def select(self, query, params):
         self.__conn.row_factory = sqlite3.Row
         cur = self.__conn.cursor()
-        for row in rowData:
-            cur.execute(query, row)
+        results = cur.execute(query, params).fetchall()
+        return results
+
+    def insertMultipleRows(self, query, params):
+        self.__conn.row_factory = sqlite3.Row
+        cur = self.__conn.cursor()
+        cur.executemany(query, params)
+
+        self.__conn.commit()
+
+    def updateMultipleRows(self, query, params):
+        self.__conn.row_factory = sqlite3.Row
+        cur = self.__conn.cursor()
+        cur.executemany(query, params)
 
         self.__conn.commit()
