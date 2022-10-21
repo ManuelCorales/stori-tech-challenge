@@ -12,22 +12,22 @@ class Account:
         self.__csvData = self.readCSV()
 
     def readCSV(self) -> pd.DataFrame:
-        return pd.read_csv(os.getcwd() + "/src/account_transactions.csv")
+        return pd.read_csv(os.getcwd() + "/account_transactions/account_transactions.csv")
 
     def getTotalBalance(self) -> float:
-        return self.__csvData[self.TRANSACTION_COLUMN].sum()
+        return round(self.__csvData[self.TRANSACTION_COLUMN].sum(), 4)
 
     def getAverageDebitAmount(self) -> float:
         debitTransactions = self.__csvData.loc[
             self.__csvData[self.TRANSACTION_COLUMN] < 0
         ][self.TRANSACTION_COLUMN]
-        return debitTransactions.mean()
+        return round(debitTransactions.mean(), 4)
 
     def getAverageCreditAmount(self) -> float:
         __accountTransactions = self.__csvData.loc[
             self.__csvData[self.TRANSACTION_COLUMN] > 0
         ][self.TRANSACTION_COLUMN]
-        return __accountTransactions.mean()
+        return round(__accountTransactions.mean(), 4)
 
     def getNumberOfTransactionsByMonth(self) -> int:
         return self.__csvData["Date"].sum()
@@ -45,4 +45,5 @@ class Account:
             else:
                 transactionsPerMonth[month] += 1
 
+        transactionsPerMonth = dict(sorted(transactionsPerMonth.items())) # Dictionary ordered by month
         return transactionsPerMonth
